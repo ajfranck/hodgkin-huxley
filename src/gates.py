@@ -4,6 +4,11 @@ import numpy as np
 Functions for calculating ion channel gate variables. We include alpha and beta rate constants for n, m, and h.
 """
 
+"""
+Layman's Explanation:
+These functions are used to calculate the rate constants for the opening and closing of ion channels in the Hodgkin-Huxley model. The model describes the behavior of action potentials in neurons. The alpha and beta functions are used to determine the probability of the channels being open or closed based on the membrane potential V.
+"""
+
 def alpha_n(V):
     """Potassium activation rate."""
     return 0.01 * (V + 55) / (1 - np.exp(-(V + 55) / 10))
