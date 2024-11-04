@@ -1,7 +1,7 @@
 # Hodgkin-Huxley Model Simulation
 
 ## Overview
-My project plans to investigate the dynamics of nerve impulses using simulations of the Hodgkin-Huxley model. This model describes how action potentials are initiated and then propagated in neurons by the opening and closing of ion channels. The model is a system of four coupled differential equations that describe the time evolution of the membrane potential and the probabilities of the ion channels being open. In this project, we plan to explore both steady-state behavior and dynamic responses to various stimuli.
+In this repo, we investigate the dynamics of nerve impulses using simulations of the Hodgkin-Huxley model. This model describes how action potentials are initiated and then propagated in neurons by the opening and closing of ion channels. The model is a system of four coupled differential equations that describe the time evolution of the membrane potential and the probabilities of the ion channels being open. In this project, we plan to explore both steady-state behavior and dynamic responses to various stimuli.
 
 ## Objectives
  * Implement the Hodgkin-Huxley differential equations in Python using numerical integration techniques.
