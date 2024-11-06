@@ -1,14 +1,14 @@
+"""
+Core implementation of the Hodgkin-Huxley model.
+Contains the main differential equations and parameters.
+"""
 import numpy as np
-from .gates import alpha_n, beta_n, alpha_m, beta_m, alpha_h, beta_h
-from .numerical import euler_cromer
-
-"""
-Core Hodgkin-Huxley model.
-Contains main differential equations and their parameters.
-"""
+from .gates import (alpha_n, beta_n, alpha_m, beta_m, alpha_h, beta_h, n_infinity, m_infinity, h_infinity)
+from .numerical import *
 
 class HodgkinHuxleyModel:
     def __init__(self):
+        # Model parameters
         self.C_m = 1.0  # Membrane capacitance (μF/cm²)
         self.g_Na = 120.0  # Sodium conductance (mS/cm²)
         self.g_K = 36.0  # Potassium conductance (mS/cm²)
@@ -18,11 +18,15 @@ class HodgkinHuxleyModel:
         self.E_L = -54.4  # Leak reversal potential (mV)
         
         # Initial conditions
+        self.reset_state()
+    
+    def reset_state(self):
+        """Reset state variables to resting conditions."""
         self.V = -65.0  # Initial membrane potential (mV)
-        self.n = 0.0  # Initial potassium activation
-        self.m = 0.0  # Initial sodium activation
-        self.h = 0.0  # Initial sodium inactivation
-
+        self.n = n_infinity(self.V)  # Initial potassium activation
+        self.m = m_infinity(self.V)  # Initial sodium activation
+        self.h = h_infinity(self.V)  # Initial sodium inactivation
+        
     def dV_dt(self, V, n, m, h, I_ext=0):
         """Calculate membrane potential derivative."""
         I_Na = self.g_Na * m**3 * h * (V - self.E_Na)
@@ -42,28 +46,50 @@ class HodgkinHuxleyModel:
         """Calculate sodium inactivation derivative."""
         return alpha_h(V) * (1 - h) - beta_h(V) * h
     
-    def simulate(self, t_span, I_ext):
-        dt = t_span[1] - t_span[0]
-        n_points = len(t_span)
-        V = np.zeros(n_points)
-        n = np.zeros(n_points)
-        m = np.zeros(n_points)
-        h = np.zeros(n_points)
-
-        V[0] = self.V
-        n[0] = self.n
-        m[0] = self.m
-        h[0] = self.h
-
-        for i in range(1, n_points):
-            V[i] = euler_cromer(self.dV_dt, V[i-1], n[i-1], m[i-1], h[i-1], I_ext, dt)
-            n[i] = euler_cromer(self.dn_dt, V[i-1], n[i-1], dt)
-            m[i] = euler_cromer(self.dm_dt, V[i-1], m[i-1], dt)
-            h[i] = euler_cromer(self.dh_dt, V[i-1], h[i-1], dt)
-
-        return V, n, m, h
-
-
-
-
-
+    def derivatives(self, t, state, I_ext=0):
+        """Calculate all derivatives for the current state."""
+        V, n, m, h = state
+        dV = self.dV_dt(V, n, m, h, I_ext)
+        dn = self.dn_dt(V, n)
+        dm = self.dm_dt(V, m)
+        dh = self.dh_dt(V, h)
+        return np.array([dV, dn, dm, dh])
+    
+    
+    def simulate(self, t_span, dt=0.01, method='euler_c', I_ext_func=lambda t: 0):
+        """
+        Run simulation for given time span and external current function.
+        
+        Args:
+            t_span: [t_start, t_end] in milliseconds
+            dt: Time step in milliseconds
+            method: Integration method ('euler_c', 'rk', or 'adams_bashforth')
+            I_ext_func: Function of time that returns external current
+        """
+        # Initial conditions
+        y0 = np.array([self.V, self.n, self.m, self.h])
+        
+        # Select integration method
+        if method == 'euler_c':
+            integrator = euler_cromer
+        elif method == 'rk':
+            integrator = runge_kutta
+        elif method == 'adams_bashforth':
+            integrator = adams_bashforth
+        else:
+            raise ValueError("Method not recognized. Use 'euler_c', 'rk', or 'adams_bashforth'")
+        
+        # Define function for derivatives with external current input
+        def func(t, y):
+            return self.derivatives(t, y, I_ext_func(t))
+        
+        # Perform integration
+        t, y = integrator(func, y0, t_span, dt)
+        
+        # Extract V, n, m, and h from y
+        V, n, m, h = y[:, 0], y[:, 1], y[:, 2], y[:, 3]
+        
+        # Update model states to last values from simulation
+        self.V, self.n, self.m, self.h = V[-1], n[-1], m[-1], h[-1]
+        
+        return t, V, n, m, h

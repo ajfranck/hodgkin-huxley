@@ -32,3 +32,38 @@ def beta_h(V):
     """Sodium deinactivation rate."""
     return 1 / (1 + np.exp(-(V + 35) / 10))
 
+def n_infinity(V):
+    """Steady state value of n."""
+    a = alpha_n(V)
+    b = beta_n(V)
+    return a / (a + b)
+
+def m_infinity(V):
+    """Steady state value of m."""
+    a = alpha_m(V)
+    b = beta_m(V)
+    return a / (a + b)
+
+def h_infinity(V):
+    """Steady state value of h."""
+    a = alpha_h(V)
+    b = beta_h(V)
+    return a / (a + b)
+
+def tau_n(V):
+    """Time constant for n."""
+    a = alpha_n(V)
+    b = beta_n(V)
+    return 1 / (a + b)
+
+def tau_m(V):
+    """Time constant for m."""
+    a = alpha_m(V)
+    b = beta_m(V)
+    return 1 / (a + b)
+
+def tau_h(V):
+    """Time constant for h."""
+    a = alpha_h(V)
+    b = beta_h(V)
+    return 1 / (a + b)
