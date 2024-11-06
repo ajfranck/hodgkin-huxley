@@ -19,7 +19,7 @@ def main():
     I_ext = create_pulse_stimulus(t)
     
     # t, V, n, m, h = model.simulate(t_span, dt=0.01, method='adams_bashforth', lambda t: I_ext[int(t/dt)])
-    t, V, n, m, h = model.simulate([0, 50], dt=0.01, method='adams_bashforth', I_ext_func=lambda t:I_ext[int(t/dt)])
+    t, V, n, m, h = model.simulate(t_span, I_ext_func=lambda t:I_ext[int(t/dt)])
     
     fig1 = plot_membrane_potential(t, V, "Single Spike Response", I_ext)
     fig2 = plot_gate_variables(t, n, m, h)
