@@ -1,10 +1,11 @@
+import numpy as np
+from .gates import (alpha_n, beta_n, alpha_m, beta_m, alpha_h, beta_h, n_infinity, m_infinity, h_infinity)
+from .numerical import *
+
 """
 Core implementation of the Hodgkin-Huxley model.
 Contains the main differential equations and parameters.
 """
-import numpy as np
-from .gates import (alpha_n, beta_n, alpha_m, beta_m, alpha_h, beta_h, n_infinity, m_infinity, h_infinity)
-from .numerical import *
 
 class HodgkinHuxleyModel:
     def __init__(self):
