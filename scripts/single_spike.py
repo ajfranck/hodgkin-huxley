@@ -11,7 +11,7 @@ def create_pulse_stimulus(t, start=5, duration=1, amplitude=7):
     return I
 
 def main():
-    t_span = [0, 50]  # 50ms simulation
+    t_span = [0, 100]
     dt = 0.01
     model = HodgkinHuxleyModel()
     
