@@ -39,6 +39,7 @@ def analyze_step_cases():
         plt.grid(True)
     
     plt.tight_layout()
+    plt.savefig('./data/results/step_response.png')
     plt.show()
 
 if __name__ == "__main__":
