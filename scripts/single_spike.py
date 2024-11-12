@@ -22,7 +22,9 @@ def main():
     t, V, n, m, h = model.simulate(t_span, I_ext_func=lambda t:I_ext[int(t/dt)])
     
     fig1 = plot_membrane_potential(t, V, "Single Spike Response", I_ext)
+    plt.savefig('./data/results/single_spike_probs.png')
     fig2 = plot_gate_variables(t, n, m, h)
+    plt.savefig('./data/results/single_spike_potential.png')
     plt.show()
 
 if __name__ == "__main__":
