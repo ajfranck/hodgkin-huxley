@@ -27,7 +27,8 @@ from src.model import HodgkinHuxleyModel
 
 model = HodgkinHuxleyModel()
 
-The model can then be utilized however you prefer--but there are included tests in the repository as well.
+##The model can then be utilized however you prefer--but I've included
+##several tests in the repository too
 
 
 ## Project Structure
