@@ -26,9 +26,9 @@ Example usage of the model:
 from src.model import HodgkinHuxleyModel
 
 model = HodgkinHuxleyModel()
+```
 
-##The model can then be utilized however you prefer--but I've included
-##several tests in the repository too
+The model can then be utilized however you prefer--but I've included several tests in the repository in the form of Jupyter notebooks.
 
 
 ## Project Structure
