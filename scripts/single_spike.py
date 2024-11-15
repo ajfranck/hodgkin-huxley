@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from src.model import HodgkinHuxleyModel
 from src.visualization import plot_membrane_potential, plot_gate_variables
 
-def create_pulse_stimulus(t, start=5, duration=1, amplitude=7):
+def create_pulse_stimulus(t, start=60, duration=1, amplitude=1):
     """Create a pulse stimulus current."""
     I = np.zeros_like(t)
     pulse_mask = (t >= start) & (t < start + duration)
