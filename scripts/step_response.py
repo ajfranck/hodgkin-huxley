@@ -13,10 +13,10 @@ def create_step_stimulus(t, I1, dI, step_time=20):
 def analyze_step_cases():
     """Analyze the four cases specified in the project."""
     cases = [
-        (2, 1.5),  # I₁ = 2μA, δI = 1.5μA
-        (2, 5.0),  # I₁ = 2μA, δI = 5.0μA
-        (7, 1.0),  # I₁ = 7μA, δI = 1.0μA
-        (7, 4.0),  # I₁ = 7μA, δI = 4.0μA
+        (4, 2.0),
+        (4, 10.0),
+        (8, 2.0),
+        (8, 10.0),
     ]
     
     t_span = [0, 40]  # 40ms simulation
