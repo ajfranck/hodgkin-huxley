@@ -9,7 +9,6 @@ import numpy as np
 
 def plot_membrane_potential(t, V, title="Membrane Potential", I_ext=None):
     """Plot membrane potential over time with optional current stimulus."""
-    # Create figure with appropriate number of subplots based on I_ext
     if I_ext is not None:
         fig, (ax1, ax2) = plt.subplots(
             2, 1,
@@ -68,7 +67,6 @@ def plot_steady_states(V_range):
     
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 10))
     
-    # Plot steady states
     ax1.plot(V_range, n_infinity(V_range), label='n∞')
     ax1.plot(V_range, m_infinity(V_range), label='m∞')
     ax1.plot(V_range, h_infinity(V_range), label='h∞')
@@ -78,7 +76,6 @@ def plot_steady_states(V_range):
     ax1.grid(True)
     ax1.legend()
     
-    # Plot time constants
     ax2.plot(V_range, tau_n(V_range), label='τn')
     ax2.plot(V_range, tau_m(V_range), label='τm')
     ax2.plot(V_range, tau_h(V_range), label='τh')
@@ -95,7 +92,6 @@ def plot_phase_plane(V, n, m, h):
     """Plot phase plane trajectories."""
     fig = plt.figure(figsize=(15, 5))
     
-    # V-n phase plane
     ax1 = fig.add_subplot(131)
     ax1.plot(V, n)
     ax1.set_xlabel("V (mV)")
@@ -103,7 +99,6 @@ def plot_phase_plane(V, n, m, h):
     ax1.set_title("V-n Phase Plane")
     ax1.grid(True)
     
-    # V-m phase plane
     ax2 = fig.add_subplot(132)
     ax2.plot(V, m)
     ax2.set_xlabel("V (mV)")
@@ -111,7 +106,6 @@ def plot_phase_plane(V, n, m, h):
     ax2.set_title("V-m Phase Plane")
     ax2.grid(True)
     
-    # V-h phase plane
     ax3 = fig.add_subplot(133)
     ax3.plot(V, h)
     ax3.set_xlabel("V (mV)")

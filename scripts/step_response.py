@@ -19,7 +19,7 @@ def analyze_step_cases():
         (8, 10.0),
     ]
     
-    t_span = [0, 40]  # 40ms simulation
+    t_span = [0, 40]
     dt = 0.01
     model = HodgkinHuxleyModel()
     

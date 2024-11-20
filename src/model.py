@@ -9,8 +9,7 @@ Contains the main differential equations and parameters.
 
 class HodgkinHuxleyModel:
     def __init__(self):
-        # Model parameters
-        self.C_m = 1.0  # Membrane capacitance (μF/cm²)
+        self.C_m = 1.0  # Membrane capacitance (muF/cm²)
         self.g_Na = 120.0  # Sodium conductance (mS/cm²)
         self.g_K = 36.0  # Potassium conductance (mS/cm²)
         self.g_L = 0.3  # Leak conductance (mS/cm²)
@@ -67,10 +66,8 @@ class HodgkinHuxleyModel:
             method: Integration method ('euler_c', 'rk', or 'adams_bashforth')
             I_ext_func: Function of time that returns external current
         """
-        # Initial conditions
         y0 = np.array([self.V, self.n, self.m, self.h])
         
-        # Select integration method
         if method == 'euler_c':
             integrator = euler_cromer
         elif method == 'rk':
@@ -80,17 +77,12 @@ class HodgkinHuxleyModel:
         else:
             raise ValueError("Method not recognized. Use 'euler_c', 'rk', or 'adams_bashforth'")
         
-        # Define function for derivatives with external current input
         def func(t, y):
             return self.derivatives(t, y, I_ext_func(t))
         
-        # Perform integration
         t, y = integrator(func, y0, t_span, dt)
         
-        # Extract V, n, m, and h from y
         V, n, m, h = y[:, 0], y[:, 1], y[:, 2], y[:, 3]
         
-        # Update model states to last values from simulation
         self.V, self.n, self.m, self.h = V[-1], n[-1], m[-1], h[-1]
-        
         return t, V, n, m, h
