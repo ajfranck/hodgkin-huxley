@@ -8,11 +8,11 @@ def main():
     V_range = np.linspace(-100, 50, 1000)
     
     # Create and show steady state plots
-    # fig = plot_steady_states(V_range)
-    # plt.show()
+    fig = plot_steady_states(V_range)
+    plt.show()
 
     # Save figure
-    # fig.savefig("./data/results/steady_states.png")
+    fig.savefig("./data/results/steady_states.png")
 
     #run simulation
     model = HodgkinHuxleyModel()

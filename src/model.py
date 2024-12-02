@@ -9,10 +9,10 @@ Contains the main differential equations and parameters.
 
 class HodgkinHuxleyModel:
     def __init__(self):
-        self.C_m = 1.0  # Membrane capacitance (muF/cm²)
-        self.g_Na = 120.0  # Sodium conductance (mS/cm²)
-        self.g_K = 36.0  # Potassium conductance (mS/cm²)
-        self.g_L = 0.3  # Leak conductance (mS/cm²)
+        self.C_m = 1.0  # Membrane capacitance (muF/cm^2)
+        self.g_Na = 120.0  # Sodium conductance (mS/cm^2)
+        self.g_K = 36.0  # Potassium conductance (mS/cm^2)
+        self.g_L = 0.3  # Leak conductance (mS/cm^2)
         self.E_Na = 55.0  # Sodium reversal potential (mV)
         self.E_K = -77.0  # Potassium reversal potential (mV)
         self.E_L = -54.4  # Leak reversal potential (mV)
